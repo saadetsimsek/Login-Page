@@ -20,8 +20,7 @@ class MailColllectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         
         configure()
-        
-        register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        register(MailCollectionViewCell.self, forCellWithReuseIdentifier: MailCollectionViewCell.identifier)
     }
     
     required init?(coder: NSCoder) {

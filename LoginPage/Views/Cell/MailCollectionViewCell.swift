@@ -15,6 +15,7 @@ class MailCollectionViewCell: UICollectionViewCell {
     private let domainLabel: UILabel = {
         let label = UILabel()
         label.font =  UIFont(name: "Apple SD Gothic Neo", size: 16)
+        label.text = "@gmail.com"
         label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

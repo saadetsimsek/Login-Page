@@ -22,6 +22,12 @@ class VerificationViewController: UIViewController {
     private let mailTextField = MailTextField()
     private let verificationButton = VerificationButton()
     private let collectionView = MailColllectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    private lazy var stackView = UIStackView(arrangedSubviews: [mailTextField,
+                                                                verificationButton,
+                                                                collectionView],
+                                        axis: .vertical,
+                                        spacing: 20)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +42,14 @@ class VerificationViewController: UIViewController {
         
         view.addSubview(backgroundImageView)
         view.addSubview(statusLabel)
+        view.addSubview(stackView)
+        verificationButton.addTarget(self,
+                                     action: #selector(verificationButtonDidTap),
+                                     for: .touchUpInside)
+    }
+    
+    @objc private func verificationButtonDidTap(){
+        print("Button tapped")
     }
     
     private func setDelegates(){
@@ -54,6 +68,16 @@ class VerificationViewController: UIViewController {
             statusLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
             statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            mailTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            verificationButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            stackView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 2),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             
         ])
     }
