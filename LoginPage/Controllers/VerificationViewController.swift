@@ -19,6 +19,9 @@ class VerificationViewController: UIViewController {
     }()
     
     private let statusLabel = StatusLabel()
+    private let mailTextField = MailTextField()
+    private let verificationButton = VerificationButton()
+    private let collectionView = MailColllectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +39,10 @@ class VerificationViewController: UIViewController {
     }
     
     private func setDelegates(){
-        
+        collectionView.selectedMailProtocol = self
     }
     
+    //MARK: - Constraints
     private func setConstraints(){
         
         NSLayoutConstraint.activate([
@@ -56,3 +60,11 @@ class VerificationViewController: UIViewController {
 
 }
 
+//MARK: - Verification Protocol
+extension VerificationViewController: SelectProposedMailProtocol {
+    func selectProposedMail(indexPath: IndexPath) {
+        print(indexPath)
+    }
+    
+    
+}
