@@ -54,6 +54,7 @@ class VerificationViewController: UIViewController {
     
     private func setDelegates(){
         collectionView.selectedMailProtocol = self
+        mailTextField.textFieldDelegate = self
     }
     
     //MARK: - Constraints
@@ -88,6 +89,20 @@ class VerificationViewController: UIViewController {
 extension VerificationViewController: SelectProposedMailProtocol {
     func selectProposedMail(indexPath: IndexPath) {
         print(indexPath)
+    }
+    
+    
+}
+
+//MARK: - Textfield Protocol
+
+extension VerificationViewController: ActionsMailTextFieldProtocol {
+    func typingText(text: String) {
+        print(text)
+    }
+    
+    func cleanOutTextfield() {
+        print("clear")
     }
     
     

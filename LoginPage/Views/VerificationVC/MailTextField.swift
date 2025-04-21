@@ -8,12 +8,20 @@
 import Foundation
 import UIKit
 
+protocol ActionsMailTextFieldProtocol: AnyObject {
+    func typingText(text: String)
+    func cleanOutTextfield()
+}
+
 class MailTextField: UITextField {
+    
+    weak var textFieldDelegate: ActionsMailTextFieldProtocol?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configure()
+        delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -36,5 +44,24 @@ class MailTextField: UITextField {
         font = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
         tintColor = .gray
         translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension MailTextField: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let text = textField.text else { return true }
+        textFieldDelegate?.typingText(text: text)
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textFieldDelegate?.cleanOutTextfield()
+        return true
     }
 }
