@@ -16,6 +16,8 @@ class MailColllectionView: UICollectionView {
     
     weak var selectedMailProtocol: SelectProposedMailProtocol?
     
+    private var verificationModel = VerificationModel()
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         
@@ -34,19 +36,26 @@ class MailColllectionView: UICollectionView {
         delegate = self
         dataSource = self
     }
+    
+    public func update(with model: VerificationModel) {
+        self.verificationModel = model
+        reloadData()
+    }
 }
 
 //MARK: -CollectionView Delegate
 extension MailColllectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return  verificationModel.filteredMailArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MailCollectionViewCell.identifier, for: indexPath) as? MailCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let mailLabelText = verificationModel.filteredMailArray[indexPath.row]
+        cell.cellConfigure(mailLabelText: mailLabelText)
         return cell
     }
     

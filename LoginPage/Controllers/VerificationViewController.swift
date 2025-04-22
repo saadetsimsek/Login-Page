@@ -9,6 +9,8 @@ import UIKit
 
 class VerificationViewController: UIViewController {
     
+    private var verificationModel = VerificationModel()
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "sea")
@@ -98,7 +100,8 @@ extension VerificationViewController: SelectProposedMailProtocol {
 
 extension VerificationViewController: ActionsMailTextFieldProtocol {
     func typingText(text: String) {
-        print(text)
+        verificationModel.getFilteredMails(text: text)
+        collectionView.update(with: verificationModel)
     }
     
     func cleanOutTextfield() {
