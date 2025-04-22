@@ -10,6 +10,17 @@ import UIKit
 
 class VerificationButton: UIButton {
     
+    public var isValid = false {
+        didSet {
+            if self.isValid {
+                setValidSettings()
+            }
+            else {
+                setNotValidSettings()
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -27,8 +38,23 @@ class VerificationButton: UIButton {
         setTitleColor(.black, for: .normal)
         layer.cornerRadius = 10
         titleLabel?.font = UIFont(name: "Avenir Book", size: 17)
-        isEnabled = false
+        isEnabled = false // tıklanabilir olup oladığı kontrolü
         alpha = 0.5
         translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    private func setValidSettings(){
+        isEnabled = true
+        alpha = 0.5
+    }
+    
+    private func setNotValidSettings(){
+        isEnabled = false
+        alpha = 0.5
+    }
+    
+    public func setDefaultSettings(){
+        configure()
+    }
+    
 }
