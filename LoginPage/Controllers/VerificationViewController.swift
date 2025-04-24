@@ -88,9 +88,19 @@ class VerificationViewController: UIViewController {
 }
 
 //MARK: - Verification Protocol
+// select suggest to list example gmaşl.com, yahoo, yandex
 extension VerificationViewController: SelectProposedMailProtocol {
     func selectProposedMail(indexPath: IndexPath) {
-        print(indexPath)
+        guard let text = mailTextField.text else { return }
+        verificationModel.getMailName(text: text)
+        let domainMail = verificationModel.filteredMailArray[indexPath.row]
+        let mailFullName = verificationModel.nameMail + domainMail
+        mailTextField.text = mailFullName
+        statusLabel.isValid = mailFullName.isvalid()
+        verificationButton.isValid = mailFullName.isvalid()
+        verificationModel.filteredMailArray = []
+        collectionView.reloadData()
+       // print(mailFullName)
     }
     
     

@@ -40,4 +40,19 @@ class VerificationModel {
     public func getFilteredMails(text: String) {
         filteringMails(text: text)
     }
+    
+    private func getUsernameFromEmail(text: String){
+        guard let atSembolIndex = text.firstIndex(of: "@") else {
+            return
+        }
+        let endIndex = text.index(before: atSembolIndex)
+        let firstIndex = text.startIndex
+        let range = text[firstIndex...endIndex]
+        
+        nameMail = String(range)
+    }
+    
+    public func getMailName(text: String){
+        getUsernameFromEmail(text: text)
+    }
 }
