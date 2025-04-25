@@ -51,7 +51,7 @@ class VerificationViewController: UIViewController {
     }
     
     @objc private func verificationButtonDidTap(){
-        //print("Button tapped")
+        print("Button tapped")
         
         guard let mail = mailTextField.text else { return }
         
@@ -59,7 +59,16 @@ class VerificationViewController: UIViewController {
             if error == nil {
                 guard let result = result else { return }
                 if result.success {
-                    print("good")
+                    guard let didYouMeanError = result.did_you_mean else {
+                        Alert.showResultAlert(vc: self, message: "Mail status \(result.result) \n \(result.reasonDescription)")
+                        return
+                    }
+                    Alert.showErrorAlert(vc: self,
+                                         message: "Did you mean \(didYouMeanError)") { [weak self] in
+                        guard let self = self else { return }
+                        self.mailTextField.text = didYouMeanError
+                    }
+                    //print("change mail")
                 }
                 else{
                     guard let errorDescription = error?.localizedDescription else { return }
